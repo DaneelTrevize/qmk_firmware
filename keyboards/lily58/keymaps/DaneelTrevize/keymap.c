@@ -100,7 +100,7 @@ const char *read_keylogs(void);
 // const char *read_timelog(void);
 
 void render_layer_state(void) {
-    char layer_name[17];
+    char layer_name[11];
     //oled_write_P(PSTR("Layer: "), false);
     //oled_write("Layer", false);
 
@@ -115,7 +115,7 @@ void render_layer_state(void) {
             oled_write_ln_P(PSTR("Num    Pad"), false);
             break;
         default:
-            snprintf(layer_name, sizeof(layer_name), "Und-%ld", layer_state);
+            snprintf(layer_name, sizeof(layer_name), "Undef%5lX", layer_state);	// l should instead depend on sizeof(layer_state_t)?
             oled_write_ln(layer_name, false);
     }
 }
@@ -130,12 +130,31 @@ void render_host_led_state(void) {
     oled_write_ln(led_state_str, false);
 }
 
+void render_mod_state(void) {
+    char    mod_state_str[36];
+	uint8_t mods = get_mods();
+    snprintf(mod_state_str, sizeof(mod_state_str), "%c S %c     %c C %c     %c A %c     %c G %c",
+            (mods & MOD_BIT(KC_LEFT_SHIFT)) ? '<' : ' ',
+            (mods & MOD_BIT(KC_RIGHT_SHIFT)) ? '>' : ' ',
+            (mods & MOD_BIT(KC_LEFT_CTRL)) ? '<' : ' ',
+            (mods & MOD_BIT(KC_RIGHT_CTRL)) ? '>' : ' ',
+            (mods & MOD_BIT(KC_LEFT_ALT)) ? '<' : ' ',
+            (mods & MOD_BIT(KC_RIGHT_ALT)) ? '>' : ' ',
+            (mods & MOD_BIT(KC_LEFT_GUI)) ? '<' : ' ',
+            (mods & MOD_BIT(KC_RIGHT_GUI)) ? '>' : ' ');
+    
+    oled_write_ln(mod_state_str, false);
+}
+
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
     //oled_write_ln(read_layer_state(), false);
+	
+	// Could refactor to modify buffer, as each state has a dedicated area and most have majority static content
     render_layer_state();
     render_host_led_state();
+	render_mod_state();
 	oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_keylogs(), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 // #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 200
+#define HOLD_ON_OTHER_KEY_PRESS
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
