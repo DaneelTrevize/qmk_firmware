@@ -29,16 +29,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 // #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 200
-#define HOLD_ON_OTHER_KEY_PRESS
+//#define HOLD_ON_OTHER_KEY_PRESS
 
 #undef RGBLED_NUM
+#undef RGBLIGHT_ANIMATIONS
+/*
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 27
 #define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-
+*/
 // Underglow
 /*
 #undef RGBLED_NUM
@@ -48,3 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #define NO_MUSIC_MODE
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+#define LAYER_STATE_8BIT

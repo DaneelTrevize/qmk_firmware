@@ -223,7 +223,7 @@ void oled_write(const char *data, bool invert);
 
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
-// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+// Advances the cursor to the next page, writing ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
 // Pans the buffer to the right (or left by passing true) by moving contents of the buffer
@@ -252,7 +252,7 @@ void oled_write_P(const char *data, bool invert);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
-// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+// Advances the cursor to the next page, writing ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 

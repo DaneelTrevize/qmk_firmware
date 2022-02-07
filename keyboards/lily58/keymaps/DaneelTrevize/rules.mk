@@ -18,8 +18,9 @@ MUSIC_ENABLE = no
 #TAP_DANCE_ENABLE = yes
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/keylogger.c \
-        ./lib/logo_reader.c \
+SRC +=  ./lib/logo_reader.c \
+		oled.c
+        # ./lib/keylogger.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/layer_state_reader.c \
         # ./lib/rgb_state_reader.c \
