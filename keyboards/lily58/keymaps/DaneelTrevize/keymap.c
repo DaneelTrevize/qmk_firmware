@@ -86,6 +86,7 @@ bool oled_task_user(void) {
 	
 	// Could refactor to modify buffer, as each state has a dedicated area and most have majority static content
 	// 5 chars x 16 lines when using strings and default font
+    #ifdef OLED_FONT_ENABLE
     render_layer_state();
     oled_advance_page(true);
     render_host_led_state();
@@ -94,9 +95,12 @@ bool oled_task_user(void) {
     //oled_advance_page(true);
 	//oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_timelog(), false);
-	//render_border();
+    #endif
+	render_border();
   } else {
+    #ifdef OLED_FONT_ENABLE
     oled_write(read_logo(), false);
+    #endif
   }
     return false;
 }

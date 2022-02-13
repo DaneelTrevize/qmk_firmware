@@ -121,26 +121,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_DISPLAY_ADDRESS 0x3C
 #endif
 
-// Custom font file to use
-#if !defined(OLED_FONT_H)
-#    define OLED_FONT_H "glcdfont.c"
+
+#ifdef OLED_FONT_ENABLE
+    // Custom font file to use
+    #if !defined(OLED_FONT_H)
+    #    define OLED_FONT_H "glcdfont.c"
+    #endif
+    // unsigned char value of the first character in the font file
+    #if !defined(OLED_FONT_START)
+    #    define OLED_FONT_START 0
+    #endif
+    // unsigned char value of the last character in the font file
+    #if !defined(OLED_FONT_END)
+    #    define OLED_FONT_END 223
+    #endif
+    // Font render width
+    #if !defined(OLED_FONT_WIDTH)
+    #    define OLED_FONT_WIDTH 6
+    #endif
+    // Font render height
+    #if !defined(OLED_FONT_HEIGHT)
+    #    define OLED_FONT_HEIGHT 8
+    #endif
 #endif
-// unsigned char value of the first character in the font file
-#if !defined(OLED_FONT_START)
-#    define OLED_FONT_START 0
-#endif
-// unsigned char value of the last character in the font file
-#if !defined(OLED_FONT_END)
-#    define OLED_FONT_END 223
-#endif
-// Font render width
-#if !defined(OLED_FONT_WIDTH)
-#    define OLED_FONT_WIDTH 6
-#endif
-// Font render height
-#if !defined(OLED_FONT_HEIGHT)
-#    define OLED_FONT_HEIGHT 8
-#endif
+
 // Default brightness level
 #if !defined(OLED_BRIGHTNESS)
 #    define OLED_BRIGHTNESS 255
@@ -199,6 +203,25 @@ void oled_clear(void);
 // Renders the dirty chunks of the buffer to oled display
 void oled_render(void);
 
+// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
+// Useful for moving the screen in preparation for new drawing
+void oled_pan(bool left);
+
+// Returns a pointer to the requested start index in the buffer plus remaining
+// buffer length as struct
+oled_buffer_reader_t oled_read_raw(uint16_t start_index);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
+
+// Writes a single byte into the buffer at the specified index
+void oled_write_raw_byte(const char data, uint16_t index);
+
+// Sets a specific pixel on or off
+// Coordinates start at top-left and go right and down for positive x and y
+void oled_write_pixel(uint8_t x, uint8_t y, bool on);
+
+#ifdef OLED_FONT_ENABLE
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
 void oled_set_cursor(uint8_t col, uint8_t line);
@@ -226,25 +249,15 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor to the next page, writing ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
-// Pans the buffer to the right (or left by passing true) by moving contents of the buffer
-// Useful for moving the screen in preparation for new drawing
-void oled_pan(bool left);
+// Returns the maximum number of characters that will fit on a line
+uint8_t oled_max_chars(void);
 
-// Returns a pointer to the requested start index in the buffer plus remaining
-// buffer length as struct
-oled_buffer_reader_t oled_read_raw(uint16_t start_index);
-
-// Writes a string to the buffer at current cursor position
-void oled_write_raw(const char *data, uint16_t size);
-
-// Writes a single byte into the buffer at the specified index
-void oled_write_raw_byte(const char data, uint16_t index);
-
-// Sets a specific pixel on or off
-// Coordinates start at top-left and go right and down for positive x and y
-void oled_write_pixel(uint8_t x, uint8_t y, bool on);
+// Returns the maximum number of lines that will fit on the oled
+uint8_t oled_max_lines(void);
+#endif
 
 #if defined(__AVR__)
+#ifdef OLED_FONT_ENABLE
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 // Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
@@ -255,6 +268,7 @@ void oled_write_P(const char *data, bool invert);
 // Advances the cursor to the next page, writing ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
+#endif
 
 // Writes a PROGMEM string to the buffer at current cursor position
 void oled_write_raw_P(const char *data, uint16_t size);
@@ -322,9 +336,3 @@ bool is_oled_scrolling(void);
 // Inverts the display
 // Returns true if the screen was or is inverted
 bool oled_invert(bool invert);
-
-// Returns the maximum number of characters that will fit on a line
-uint8_t oled_max_chars(void);
-
-// Returns the maximum number of lines that will fit on the oled
-uint8_t oled_max_lines(void);

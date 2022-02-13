@@ -7,8 +7,10 @@ enum layer_number {
 };
 
 #ifdef OLED_ENABLE
-void render_layer_state(void);
-void render_host_led_state(void);
-void render_mod_state(void);
+  #ifdef OLED_FONT_ENABLE
+  void render_layer_state(void);
+  void render_host_led_state(void);
+  void render_mod_state(void);
+  #endif // OLED_FONT_ENABLE
 void render_border(void);
 #endif // OLED_ENABLE

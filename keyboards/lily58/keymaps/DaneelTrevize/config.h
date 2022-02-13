@@ -31,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 //#define HOLD_ON_OTHER_KEY_PRESS
 
+#define OLED_FONT_ENABLE
+
 #undef RGBLED_NUM
 #undef RGBLIGHT_ANIMATIONS
 /*
@@ -52,4 +54,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
-//#define LAYER_STATE_8BIT
+#define LAYER_STATE_8BIT

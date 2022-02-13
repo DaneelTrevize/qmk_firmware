@@ -2,7 +2,7 @@
 
 #include "oled.h"
 
-#ifdef OLED_ENABLE
+#ifdef OLED_FONT_ENABLE
 void render_layer_state(void) {
     //char layer_name[11];
 
@@ -54,7 +54,9 @@ void render_mod_state(void) {
     oled_write_char((mods & MOD_BIT(KC_RIGHT_GUI) ? '>' : ' '), false);
     oled_advance_page(true);
 }
+#endif  // OLED_FONT_ENABLE
 
+#ifdef OLED_ENABLE
 void render_border(void) {
 	for( uint8_t x = 0; x < OLED_DISPLAY_HEIGHT; x++ ) {
 		oled_write_pixel( x, 0, true );
