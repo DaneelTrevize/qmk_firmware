@@ -484,7 +484,7 @@ void oled_write_char(const char data, bool invert) {
 
     _Static_assert(sizeof(font) >= ((OLED_FONT_END + 1 - OLED_FONT_START) * OLED_FONT_WIDTH), "OLED_FONT_END references outside array");
 
-    // set the reder buffer data
+    // set the render buffer data
     uint8_t cast_data = (uint8_t)data;  // font based on unsigned type for index
     if (cast_data < OLED_FONT_START || cast_data > OLED_FONT_END) {
         memset(oled_cursor, 0x00, OLED_FONT_WIDTH);
