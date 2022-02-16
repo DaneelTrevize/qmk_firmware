@@ -57,16 +57,114 @@ void render_mod_state(void) {
 #endif  // OLED_FONT_ENABLE
 
 #ifdef OLED_ENABLE
-void render_border(void) {
-	for( uint8_t x = 0; x < OLED_DISPLAY_HEIGHT; x++ ) {
-		oled_write_pixel( x, 0, true );
-		oled_write_pixel( x, OLED_DISPLAY_WIDTH-1, true );
-	}
-	for( uint8_t y = 0; y < OLED_DISPLAY_WIDTH; y++ ) {
-		oled_write_pixel( 0, y, true );
-		oled_write_pixel( OLED_DISPLAY_HEIGHT-1, y, true );
-	}
-}
+
+const char colemak[] PROGMEM = {
+	// Colemak
+	0b00011110,
+	0b00100001,
+	0b00100001,
+	0b00010010,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00011000,
+	0x00,
+	0b00011110,
+	0b00100000,
+	0x00,
+	0b00011000,
+	0b00101100,
+	0b00101100,
+	0b00001000,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00111000,
+	0b00000100,
+	0b00111000,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00111100,
+	0x00,
+	0b00111110,
+	0b00011000,
+	0b00100100,
+};
+
+const char fn_nav[] PROGMEM = {
+	// Func Nav
+	0b00111111,
+	0b00000101,
+	0b00000001,
+	0b00011100,
+	0b00100000,
+	0b00100000,
+	0b00011100,
+	0x00,
+	0b00111100,
+	0b00000100,
+	0b00000100,
+	0b00111000,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0x00,
+	0x00,
+	0x00,
+	0b00111111,
+	0b00000100,
+	0b00001000,
+	0b00111111,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00111100,
+	0x00,
+	0b00011100,
+	0b00100000,
+	0b00011100,
+};
+
+const char num_pad[] PROGMEM = {
+	// Num Pad
+	0b00111111,
+	0b00000100,
+	0b00001000,
+	0b00111111,
+	0x00,
+	0b00011100,
+	0b00100000,
+	0b00100000,
+	0b00011100,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00111000,
+	0b00000100,
+	0b00111000,
+	0x00,
+	0x00,
+	0x00,
+	0b00111111,
+	0b00001001,
+	0b00001001,
+	0b00000110,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00111100,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00111111,
+};
 
 const char led_num_on[] PROGMEM = {
 	// Num
@@ -102,12 +200,12 @@ const char led_caps_on[] PROGMEM = {
 };
 
 const char led_scroll_on[] PROGMEM = {
-	// SL
+	// Sc
 	0b00100111,
-	0b00111001,
+	0b00111101,
 	0x00,
-	0b00111111,
-	0b00100000
+	0b00111100,
+	0b00100100
 };
 
 void clear_range(uint16_t index, uint16_t size) {
@@ -116,8 +214,26 @@ void clear_range(uint16_t index, uint16_t size) {
 	}
 }
 
-void render_host_led_state2(void) {
+void render_layer_state2(void) {
 	uint16_t index = 0;
+    switch (biton32(layer_state)) {
+        case _COLEMAK:
+			oled_write_data_P(colemak, index, sizeof(colemak));
+            break;
+        case _FN_NAV_KEYS:
+			oled_write_data_P(fn_nav, index, sizeof(fn_nav));
+            break; 
+        case _NUMS_MIRROR:
+			oled_write_data_P(num_pad, index, sizeof(num_pad));
+            break;
+        default:
+			// Could display the layer number binary as a grid of 2x3 bits
+			clear_range( index, 32 );
+    }
+}
+
+void render_host_led_state2(void) {
+	uint16_t index = 32;
 	if( IS_HOST_LED_ON(USB_LED_NUM_LOCK) ) {
 		oled_write_data_P(led_num_on, index, sizeof(led_num_on));
 	} else {

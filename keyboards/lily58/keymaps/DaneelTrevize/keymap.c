@@ -8,14 +8,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   0  |   9  |   8  |   7  |   6  |Pause |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | BkSp |   Q  |   W  |   F  |   P  |   B  |                    |   J  |   L  |   U  |   Y  |   '  | BkSp |
+ * |   `  |   Q  |   W  |   F  |   P  |   B  |                    |   J  |   L  |   U  |   Y  |   ;  |   '  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |   A  |   R  |   S  |   T  |   G  |-------.    ,-------|   M  |   N  |   E  |   I  |   O  |      |
+ * | BkSp |   A  |   R  |   S  |   T  |   G  |-------.    ,-------|   M  |   N  |   E  |   I  |   O  | BkSp |
  * |------+------+------+------+------+------|  Del  |    | Enter |------+------+------+------+------+------|
- * | LGUI |   Z  |   X  |   C  |   D  |   V  |-------|    |-------|   K  |   H  |   ,  |   .  |   /  |      |
+ * | LGUI |   Z  |   X  |   C  |   D  |   V  |-------|    |-------|   K  |   H  |   ,  |   .  |   /  |Browsr|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /Space  /       \      \  |      |      |      |
- *                   |      |      |      |/ LCtrl /         \Shift \ |      |      |      |
+ *                   |      |      |      | /Space  /       \      \  |  Tab |Layer2|      |
+ *                   |Layer0|Layer2|Layer1|/ LCtrl /         \Shift \ |Layer1|      |Layer0|
  *                   `----------------------------'           '------''--------------------'
  */
 [_COLEMAK] = LAYOUT(
@@ -30,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |      | PgUp | Home |  Up  |  End | PgDn |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |      |      |      |      |
+ * |      |  Alt | Left | Down | Right|PrintS|-------.    ,-------|      |      |      |      |      |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |-------|    |-------|  F10 |  F9  |  F8  |  F7  |  F6  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -84,7 +84,6 @@ bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
 	
-	// Could refactor to modify buffer, as each state has a dedicated area and most have majority static content
 	// 5 chars x 16 lines when using strings and default font
     #ifdef OLED_FONT_ENABLE
     render_layer_state();
@@ -96,7 +95,7 @@ bool oled_task_user(void) {
 	//oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_timelog(), false);
     #endif
-	//render_border();
+	render_layer_state2();
 	render_host_led_state2();
   } else {
     #ifdef OLED_FONT_ENABLE
