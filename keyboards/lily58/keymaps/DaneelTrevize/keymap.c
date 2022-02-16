@@ -95,8 +95,9 @@ bool oled_task_user(void) {
 	//oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_timelog(), false);
     #endif
-	render_layer_state2();
-	render_host_led_state2();
+	render_layer_state2( 0 );
+	render_host_led_state2( 32 );
+	render_mod_state2( 64 );
   } else {
     #ifdef OLED_FONT_ENABLE
     oled_write(read_logo(), false);

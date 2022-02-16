@@ -12,6 +12,7 @@ enum layer_number {
   void render_host_led_state(void);
   void render_mod_state(void);
   #endif // OLED_FONT_ENABLE
-void render_layer_state2(void);
-void render_host_led_state2(void);
+void render_layer_state2( uint16_t index );
+void render_host_led_state2( uint16_t index );
+void render_mod_state2( uint16_t index );
 #endif // OLED_ENABLE
