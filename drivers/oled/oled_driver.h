@@ -271,7 +271,10 @@ void oled_write_ln_P(const char *data, bool invert);
 #endif
 
 // Writes a PROGMEM string to the buffer at current cursor position
+// But it doesn't advance the cursor..?
 void oled_write_raw_P(const char *data, uint16_t size);
+// Writes a PROGMEM string to the buffer at the specified index
+void oled_write_data_P(const char *data, uint16_t index, uint16_t size);
 #else
 #    define oled_write_P(data, invert) oled_write(data, invert)
 #    define oled_write_ln_P(data, invert) oled_write(data, invert)

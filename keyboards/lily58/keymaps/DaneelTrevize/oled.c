@@ -68,78 +68,72 @@ void render_border(void) {
 	}
 }
 
+const char led_num_on[] PROGMEM = {
+	// Num
+	0b00111111,
+	0b00000100,
+	0b00001000,
+	0b00111111,
+	0x00,
+	0b00111100,
+	0b00100000,
+	0b00111100,
+	0x00,
+	0b00111100,
+	0b00000100,
+	0b00111100,
+	0b00000100,
+	0b00111100
+};
+
+const char led_caps_on[] PROGMEM = {
+	// Cap
+	0b00111111,
+	0b00100001,
+	0b00110011,
+	0x00,
+	0b00111100,
+	0b00010100,
+	0b00111100,
+	0x00,
+	0b00111100,
+	0b00010100,
+	0b00011100
+};
+
+const char led_scroll_on[] PROGMEM = {
+	// SL
+	0b00100111,
+	0b00111001,
+	0x00,
+	0b00111111,
+	0b00100000
+};
+
+void clear_range(uint16_t index, uint16_t size) {
+	for( uint16_t i = 0; i < size; i++) {
+		oled_write_raw_byte( 0x00, index + i );
+	}
+}
+
 void render_host_led_state2(void) {
+	uint16_t index = 0;
 	if( IS_HOST_LED_ON(USB_LED_NUM_LOCK) ) {
-		// Num
-		oled_write_raw_byte( 0b00111111, 0 );
-		oled_write_raw_byte( 0b00000100, 1 );
-		oled_write_raw_byte( 0b00001000, 2 );
-		oled_write_raw_byte( 0b00111111, 3 );
-		
-		oled_write_raw_byte( 0b00111100, 5 );
-		oled_write_raw_byte( 0b00100000, 6 );
-		oled_write_raw_byte( 0b00111100, 7 );
-		
-		oled_write_raw_byte( 0b00111100, 9 );
-		oled_write_raw_byte( 0b00000100, 10 );
-		oled_write_raw_byte( 0b00111100, 11 );
-		oled_write_raw_byte( 0b00000100, 12 );
-		oled_write_raw_byte( 0b00111100, 13 );
+		oled_write_data_P(led_num_on, index, sizeof(led_num_on));
 	} else {
-		oled_write_raw_byte( 0, 0 );
-		oled_write_raw_byte( 0, 1 );
-		oled_write_raw_byte( 0, 2 );
-		oled_write_raw_byte( 0, 3 );
-		
-		oled_write_raw_byte( 0, 5 );
-		oled_write_raw_byte( 0, 6 );
-		oled_write_raw_byte( 0, 7 );
-		
-		oled_write_raw_byte( 0, 9 );
-		oled_write_raw_byte( 0, 10 );
-		oled_write_raw_byte( 0, 11 );
-		oled_write_raw_byte( 0, 12 );
-		oled_write_raw_byte( 0, 13 );
+		clear_range( index, sizeof(led_num_on) );
 	}
+	index += sizeof(led_num_on) + 1;
 	if( IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ) {
-		// Cap
-		oled_write_raw_byte( 0b00111111, 15 );
-		oled_write_raw_byte( 0b00100001, 16 );
-		oled_write_raw_byte( 0b00110011, 17 );
-		
-		oled_write_raw_byte( 0b00111100, 19 );
-		oled_write_raw_byte( 0b00010100, 20 );
-		oled_write_raw_byte( 0b00111100, 21 );
-		
-		oled_write_raw_byte( 0b00111100, 23 );
-		oled_write_raw_byte( 0b00010100, 24 );
-		oled_write_raw_byte( 0b00011100, 25 );
+		oled_write_data_P(led_caps_on, index, sizeof(led_caps_on));
 	} else {
-		oled_write_raw_byte( 0, 15 );
-		oled_write_raw_byte( 0, 16 );
-		oled_write_raw_byte( 0, 17 );
-		
-		oled_write_raw_byte( 0, 19 );
-		oled_write_raw_byte( 0, 20 );
-		oled_write_raw_byte( 0, 21 );
-		
-		oled_write_raw_byte( 0, 23 );
-		oled_write_raw_byte( 0, 24 );
-		oled_write_raw_byte( 0, 25 );
+		clear_range( index, sizeof(led_caps_on) );
 	}
+	index += sizeof(led_caps_on) + 1;
 	if( IS_HOST_LED_ON(USB_LED_SCROLL_LOCK) ) {
-		// SL
-		oled_write_raw_byte( 0b00100111, 27 );
-		oled_write_raw_byte( 0b00111001, 28 );
-		
-		oled_write_raw_byte( 0b00111111, 30 );
-		oled_write_raw_byte( 0b00100000, 31 );
+		oled_write_data_P(led_scroll_on, index, sizeof(led_scroll_on));
 	} else {
-		oled_write_raw_byte( 0, 27 );
-		oled_write_raw_byte( 0, 28 );
-		
-		oled_write_raw_byte( 0, 30 );
-		oled_write_raw_byte( 0, 31 );
+		clear_range( index, sizeof(led_scroll_on) );
 	}
 }
 #endif  // OLED_ENABLE
