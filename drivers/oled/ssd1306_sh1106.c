@@ -112,7 +112,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
 uint8_t         oled_buffer[OLED_MATRIX_SIZE];
+#ifdef OLED_FONT_ENABLE
 uint8_t *       oled_cursor;
+#endif
 OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
@@ -230,7 +232,9 @@ __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_clear(void) {
     memset(oled_buffer, 0, sizeof(oled_buffer));
+#ifdef OLED_FONT_ENABLE
     oled_cursor = &oled_buffer[0];
+#endif
     oled_dirty  = OLED_ALL_BLOCKS_MASK;
 }
 
@@ -374,17 +378,6 @@ void oled_write_raw_byte(const char data, uint16_t index) {
     oled_dirty |= ((OLED_BLOCK_TYPE)1 << (index / OLED_BLOCK_SIZE));
 }
 
-void oled_write_raw(const char *data, uint16_t size) {
-    uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
-    if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
-    for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
-        uint8_t c = *data++;
-        if (oled_buffer[i] == c) continue;
-        oled_buffer[i] = c;
-        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
-    }
-}
-
 void oled_write_pixel(uint8_t x, uint8_t y, bool on) {
     if (x >= oled_rotation_width) {
         return;
@@ -415,6 +408,17 @@ void oled_set_cursor(uint8_t col, uint8_t line) {
     }
 
     oled_cursor = &oled_buffer[index];
+}
+
+void oled_write_raw(const char *data, uint16_t size) {
+    uint16_t cursor_start_index = oled_cursor - &oled_buffer[0];
+    if ((size + cursor_start_index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - cursor_start_index;
+    for (uint16_t i = cursor_start_index; i < cursor_start_index + size; i++) {
+        uint8_t c = *data++;
+        if (oled_buffer[i] == c) continue;
+        oled_buffer[i] = c;
+        oled_dirty |= ((OLED_BLOCK_TYPE)1 << (i / OLED_BLOCK_SIZE));
+    }
 }
 
 void oled_advance_page(bool clearPageRemainder) {
@@ -552,12 +556,12 @@ void oled_write_ln_P(const char *data, bool invert) {
     oled_write_P(data, invert);
     oled_advance_page(true);
 }
-#endif  // OLED_FONT_ENABLE
 
 void oled_write_raw_P(const char *data, uint16_t size) {
     uint16_t index = oled_cursor - &oled_buffer[0];
 	oled_write_data_P( data, index, size );
 }
+#endif  // OLED_FONT_ENABLE
 
 void oled_write_data_P(const char *data, uint16_t index, uint16_t size) {
     if ((size + index) > OLED_MATRIX_SIZE) size = OLED_MATRIX_SIZE - index;

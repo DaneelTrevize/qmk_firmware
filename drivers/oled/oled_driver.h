@@ -211,9 +211,6 @@ void oled_pan(bool left);
 // buffer length as struct
 oled_buffer_reader_t oled_read_raw(uint16_t start_index);
 
-// Writes a string to the buffer at current cursor position
-void oled_write_raw(const char *data, uint16_t size);
-
 // Writes a single byte into the buffer at the specified index
 void oled_write_raw_byte(const char data, uint16_t index);
 
@@ -225,6 +222,9 @@ void oled_write_pixel(uint8_t x, uint8_t y, bool on);
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
 void oled_set_cursor(uint8_t col, uint8_t line);
+
+// Writes a string to the buffer at current cursor position
+void oled_write_raw(const char *data, uint16_t size);
 
 // Advances the cursor to the next page, writing ' ' if true
 // Wraps to the begining when out of bounds
@@ -268,11 +268,11 @@ void oled_write_P(const char *data, bool invert);
 // Advances the cursor to the next page, writing ' ' to the remainder of the current page
 // Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
-#endif
-
 // Writes a PROGMEM string to the buffer at current cursor position
 // But it doesn't advance the cursor..?
 void oled_write_raw_P(const char *data, uint16_t size);
+#endif
+
 // Writes a PROGMEM string to the buffer at the specified index
 void oled_write_data_P(const char *data, uint16_t index, uint16_t size);
 #else

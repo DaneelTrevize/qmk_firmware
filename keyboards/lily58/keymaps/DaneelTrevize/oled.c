@@ -245,7 +245,6 @@ const char ctrl_bmp[] PROGMEM = {
 	0b00000001,
 	0x00,
 	0b01111111,
-	0b00001001,
 	0b00011001,
 	0b00101001,
 	0b01000110,
@@ -351,10 +350,10 @@ void render_host_led_state2( uint16_t index ) {
 
 void render_mod_state2( uint16_t index ) {
 	// Should check passed index has enough room left to fit all the lines..?
-	oled_write_data_P(shift_bmp, index+5, sizeof(shift_bmp));
-	oled_write_data_P(ctrl_bmp, index+32+6, sizeof(ctrl_bmp));
-	oled_write_data_P(alt_bmp, index+64+8, sizeof(alt_bmp));
-	oled_write_data_P(gui_bmp, index+96+8, sizeof(gui_bmp));
+	oled_write_data_P(shift_bmp, index+6, sizeof(shift_bmp));
+	oled_write_data_P(ctrl_bmp, index+32+7, sizeof(ctrl_bmp));
+	oled_write_data_P(alt_bmp, index+64+9, sizeof(alt_bmp));
+	oled_write_data_P(gui_bmp, index+96+9, sizeof(gui_bmp));
 	
 	uint8_t mods = get_mods();
 	write_or_clear( mods & MOD_BIT(KC_LEFT_SHIFT), index, right_arrow_bmp, sizeof(right_arrow_bmp) );
