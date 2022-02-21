@@ -209,103 +209,65 @@ const char led_scroll_bmp[] PROGMEM = {
 
 const char shift_bmp[] PROGMEM = {
 	// Shift
-	0b00100110,
+	0b01000110,
 	0b01001001,
-	0b01001001,
-	0b00110010,
+	0b00110001,
 	0x00,
-	0b01111111,
+	0b01111110,
 	0b00001000,
-	0b01111111,
+	0b01110000,
 	0x00,
-	0b01000001,
-	0b01111111,
-	0b01000001,
+	0b01110100,
 	0x00,
-	0b01111111,
-	0b00001001,
-	0b00000001,
+	0b01111100,
+	0b00001010,
 	0x00,
-	0b00000001,
-	0b01111111,
-	0b00000001
+	0b00111110,
+	0b01001000
 };
 
 const char ctrl_bmp[] PROGMEM = {
 	// Ctrl
-	0b01111111,
-	0b01000001,
-	0b01000001,
-	0b01100011,
+	0b00111100,
+	0b01000010,
+	0b01000010,
 	0x00,
-	0b00000001,
-	0b00000001,
-	0b01111111,
-	0b00000001,
-	0b00000001,
+	0b00111110,
+	0b01001000,
 	0x00,
-	0b01111111,
-	0b00001001,
-	0b00011001,
-	0b01100110,
+	0b01110000,
+	0b00001000,
 	0x00,
-	0b01111111,
-	0b01000000,
+	0b00111110,
 	0b01000000
 };
 
 const char alt_bmp[] PROGMEM = {
 	// Alt
-	0b01111100,
-	0b00001010,
+	0b01111110,
 	0b00001001,
-	0b00001010,
-	0b01111100,
+	0b01111110,
 	0x00,
-	0b01111111,
+	0b00111110,
 	0b01000000,
-	0b01000000,
-	0b01000000,
-	0b00000001,
-	0b00000001,
-	0b01111111,
-	0b00000001,
-	0b00000001
+	0x00,
+	0b00111110,
+	0b01001000
 };
 
 const char gui_bmp[] PROGMEM = {
 	// Gui
 	0b01111111,
 	0b01000001,
-	0b01010001,
 	0b01110011,
 	0x00,
-	0b01111111,
+	0b01111110,
 	0b01000000,
-	0b01000000,
-	0b01111111,
+	0b01111110,
 	0x00,
-	0b01000001,
-	0b01000001,
-	0b01111111,
-	0b01000001,
-	0b01000001,
-};
-
-const char right_arrow_bmp[] PROGMEM = {
-	// >
-	0b01111111,
-	0b00111110,
-	0b00011100,
-	0b00001000
-};
-
-const char left_arrow_bmp[] PROGMEM = {
-	// <
-	0b00001000,
-	0b00011100,
-	0b00111110,
-	0b01111111
+	0b01000010,
+	0b01111110,
+	0b01000010,
 };
 
 void clear_range(uint16_t index, uint16_t size) {
@@ -350,19 +312,14 @@ void render_host_led_state2( uint16_t index ) {
 
 void render_mod_state2( uint16_t index ) {
 	// Should check passed index has enough room left to fit all the lines..?
-	oled_write_data_P(shift_bmp, index+6, sizeof(shift_bmp));
-	oled_write_data_P(ctrl_bmp, index+32+7, sizeof(ctrl_bmp));
-	oled_write_data_P(alt_bmp, index+64+9, sizeof(alt_bmp));
-	oled_write_data_P(gui_bmp, index+96+9, sizeof(gui_bmp));
 	
 	uint8_t mods = get_mods();
-	write_or_clear( mods & MOD_BIT(KC_LEFT_SHIFT), index, right_arrow_bmp, sizeof(right_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_RIGHT_SHIFT), index+32-sizeof(left_arrow_bmp), left_arrow_bmp, sizeof(left_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_LEFT_CTRL), index+32, right_arrow_bmp, sizeof(right_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_RIGHT_CTRL), index+64-sizeof(left_arrow_bmp), left_arrow_bmp, sizeof(left_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_LEFT_ALT), index+64, right_arrow_bmp, sizeof(right_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_RIGHT_ALT), index+96-sizeof(left_arrow_bmp), left_arrow_bmp, sizeof(left_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_LEFT_GUI), index+96, right_arrow_bmp, sizeof(right_arrow_bmp) );
-	write_or_clear( mods & MOD_BIT(KC_RIGHT_GUI), index+128-sizeof(left_arrow_bmp), left_arrow_bmp, sizeof(left_arrow_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_LEFT_SHIFT), index, shift_bmp, sizeof(shift_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_RIGHT_SHIFT), index+32-sizeof(shift_bmp), shift_bmp, sizeof(shift_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_LEFT_CTRL), index+32, ctrl_bmp, sizeof(ctrl_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_RIGHT_CTRL), index+64-sizeof(ctrl_bmp), ctrl_bmp, sizeof(ctrl_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_LEFT_ALT), index+64, alt_bmp, sizeof(alt_bmp) );
+	write_or_clear( mods & MOD_BIT(KC_RIGHT_ALT), index+96-sizeof(alt_bmp), alt_bmp, sizeof(alt_bmp) );
+	write_or_clear( mods & MOD_MASK_GUI, index+64+sizeof(alt_bmp)+1, gui_bmp, sizeof(gui_bmp) );
 }
 #endif  // OLED_ENABLE
