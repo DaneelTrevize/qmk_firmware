@@ -42,12 +42,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NOP 0xE3
 
 // Scrolling Commands
-#define ACTIVATE_SCROLL 0x2F
 #define DEACTIVATE_SCROLL 0x2E
+#ifdef OLED_SCROLL_ENABLE
+#define ACTIVATE_SCROLL 0x2F
 #define SCROLL_RIGHT 0x26
 #define SCROLL_LEFT 0x27
 #define SCROLL_RIGHT_UP 0x29
 #define SCROLL_LEFT_UP 0x2A
+#else
+#define OLED_SCROLL_TIMEOUT 0
+#endif // OLED_SCROLL_ENABLE
 
 // Addressing Setting Commands
 #define MEMORY_MODE 0x20
@@ -118,14 +122,18 @@ uint8_t *       oled_cursor;
 OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
+#ifdef OLED_SCROLL_ENABLE
 bool            oled_scrolling      = false;
+#endif
 bool            oled_inverted       = false;
 uint8_t         oled_brightness     = OLED_BRIGHTNESS;
 oled_rotation_t oled_rotation       = 0;
 uint8_t         oled_rotation_width = 0;
+#ifdef OLED_SCROLL_ENABLE
 uint8_t         oled_scroll_speed   = 0; // this holds the speed after being remapped to ssd1306 internal values
 uint8_t         oled_scroll_start   = 0;
 uint8_t         oled_scroll_end     = 7;
+#endif
 #if OLED_TIMEOUT > 0
 uint32_t oled_timeout;
 #endif
@@ -223,7 +231,9 @@ bool oled_init(oled_rotation_t rotation) {
     oled_clear();
     oled_initialized = true;
     oled_active      = true;
+#ifdef OLED_SCROLL_ENABLE
     oled_scrolling   = false;
+#endif
     return true;
 }
 
@@ -294,7 +304,11 @@ void oled_render(void) {
 
     // Do we have work to do?
     oled_dirty &= OLED_ALL_BLOCKS_MASK;
+#ifdef OLED_SCROLL_ENABLE
     if (!oled_dirty || oled_scrolling) {
+#else
+    if (!oled_dirty) {
+#endif
         return;
     }
 
@@ -651,6 +665,7 @@ uint8_t oled_get_brightness(void) {
     return oled_brightness;
 }
 
+#ifdef OLED_SCROLL_ENABLE
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
 // height of the screen.  For 128x32 screens, rows 4-7 are not used.
@@ -732,6 +747,7 @@ bool oled_scroll_off(void) {
 bool is_oled_scrolling(void) {
     return oled_scrolling;
 }
+#endif // OLED_SCROLL_ENABLE
 
 bool oled_invert(bool invert) {
     if (!oled_initialized) {

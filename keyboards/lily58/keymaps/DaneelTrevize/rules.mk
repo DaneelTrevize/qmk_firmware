@@ -10,6 +10,7 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_ENABLE = yes           # OLED display
 #OLED_FONT_ENABLE = yes      # OLED font handling
+#OLED_SCROLL_ENABLE = yes    # OLED accelerated scrolling
 
 LTO_ENABLE=yes              # link time optimization
 SPACE_CADET_ENABLE = no
@@ -22,10 +23,14 @@ ifeq ($(strip $(OLED_FONT_ENABLE)), yes)
     OPT_DEFS += -DOLED_FONT_ENABLE
 endif
 
+ifeq ($(strip $(OLED_SCROLL_ENABLE)), yes)
+    OPT_DEFS += -DOLED_SCROLL_ENABLE
+endif
+
 # If you want to change the display of OLED, you need to change here
-SRC +=  ./lib/logo_reader.c \
-		oled.c
-        # ./lib/keylogger.c \
+SRC +=  oled.c
+        # ./lib/logo_reader.c \
+		# ./lib/keylogger.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/layer_state_reader.c \
         # ./lib/rgb_state_reader.c \

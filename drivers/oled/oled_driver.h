@@ -306,6 +306,7 @@ void oled_task(void);
 bool oled_task_kb(void);
 bool oled_task_user(void);
 
+#ifdef OLED_SCROLL_ENABLE
 // Set the specific 8 lines rows of the screen to scroll.
 // 0 is the default for start, and 7 for end, which is the entire
 // height of the screen.  For 128x32 screens, rows 4-7 are not used.
@@ -335,6 +336,7 @@ bool oled_scroll_off(void);
 // Returns true if the oled is currently scrolling, false if it is
 // not
 bool is_oled_scrolling(void);
+#endif // OLED_SCROLL_ENABLE
 
 // Inverts the display
 // Returns true if the screen was or is inverted

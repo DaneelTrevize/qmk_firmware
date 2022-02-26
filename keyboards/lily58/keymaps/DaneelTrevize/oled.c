@@ -3,18 +3,21 @@
 #include "oled.h"
 
 #ifdef OLED_FONT_ENABLE
-void render_layer_state(void) {
+void write_layer_state(void) {
     //char layer_name[11];
 
     switch (biton32(layer_state)) {
         case _COLEMAK:
             oled_write_P(PSTR("Cole   mak"), false);
             break;
-        case _FN_NAV_KEYS:
-            oled_write_P(PSTR("Func   Nav"), false);
+        case _FUNCT:
+            oled_write_P(PSTR("Func  tion"), false);
             break;
-        case _NUMS_MIRROR:
-            oled_write_P(PSTR("Num    Pad"), false);
+        case _NAV_SYM:
+            oled_write_P(PSTR("Nav    Sym"), false);
+            break;
+        case _MIRR_NUM:
+            oled_write_P(PSTR("Mirr   Num"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -23,7 +26,7 @@ void render_layer_state(void) {
     }
 }
 
-void render_host_led_state(void) {
+void write_host_led_state(void) {
     oled_write_char((IS_HOST_LED_ON(USB_LED_NUM_LOCK) ? 'N' : ' '), false);
     oled_write_char(' ', false);
     oled_write_char((IS_HOST_LED_ON(USB_LED_CAPS_LOCK) ? 'C' : ' '), false);
@@ -31,7 +34,7 @@ void render_host_led_state(void) {
     oled_write_char((IS_HOST_LED_ON(USB_LED_SCROLL_LOCK) ? 'S' : ' '), false);
 }
 
-void render_mod_state(void) {
+void write_mod_state(void) {
 	uint8_t mods = get_mods();
 	
     oled_write_char((mods & MOD_BIT(KC_LEFT_SHIFT) ? '<' : ' '), false);
@@ -93,9 +96,10 @@ const char colemak_bmp[] PROGMEM = {
 	0b00100100
 };
 
-const char fn_nav_bmp[] PROGMEM = {
-	// Func Nav
+const char funct_bmp[] PROGMEM = {
+	// Function
 	0b00111111,
+	0b00000101,
 	0b00000101,
 	0b00000001,
 	0b00011100,
@@ -112,57 +116,92 @@ const char fn_nav_bmp[] PROGMEM = {
 	0b00100100,
 	0b00100100,
 	0x00,
+	0b00011111,
+	0b00100100,
 	0x00,
-	0x00,
-	0b00111111,
-	0b00000100,
-	0b00001000,
-	0b00111111,
+	0b00111010,
 	0x00,
 	0b00011000,
 	0b00100100,
 	0b00100100,
-	0b00111100,
+	0b00011000,
 	0x00,
-	0b00011100,
-	0b00100000,
-	0b00011100
+	0b00111100,
+	0b00000100,
+	0b00000100,
+	0b00111000
 };
 
-const char num_pad_bmp[] PROGMEM = {
-	// Num Pad
+const char nav_sym_bmp[] PROGMEM = {
+	// Nav Sym
 	0b00111111,
 	0b00000100,
 	0b00001000,
 	0b00111111,
-	0x00,
-	0b00011100,
-	0b00100000,
-	0b00100000,
-	0b00011100,
-	0x00,
-	0b00111000,
-	0b00000100,
-	0b00111000,
-	0b00000100,
-	0b00111000,
-	0x00,
-	0x00,
-	0x00,
-	0b00111111,
-	0b00001001,
-	0b00001001,
-	0b00000110,
 	0x00,
 	0b00011000,
 	0b00100100,
 	0b00100100,
 	0b00111100,
 	0x00,
-	0b00011000,
-	0b00100100,
-	0b00100100,
-	0b00111111
+	0b00001100,
+	0b00010000,
+	0b00100000,
+	0b00010000,
+	0b00001100,
+	0x00,
+	0x00,
+	0x00,
+	0b00100010,
+	0b00100101,
+	0b00100101,
+	0b00011001,
+	0x00,
+	0b00000110,
+	0b00111000,
+	0b00000110,
+	0x00,
+	0b00111110,
+	0b00000010,
+	0b00111110,
+	0b00000010,
+	0b00111110
+};
+
+const char mirr_num_bmp[] PROGMEM = {
+	// Mirr Num
+	0b00111111,
+	0b00000010,
+	0b00111100,
+	0b00000010,
+	0b00111111,
+	0x00,
+	0b00111010,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00000100,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00000100,
+	0x00,
+	0x00,
+	0x00,
+	0b00111111,
+	0b00000100,
+	0b00001000,
+	0b00111111,
+	0x00,
+	0b00111100,
+	0b00100000,
+	0b00111100,
+	0x00,
+	0b00111100,
+	0b00000100,
+	0b00111100,
+	0b00000100,
+	0b00111100
 };
 
 const char led_num_bmp[] PROGMEM = {
@@ -276,17 +315,20 @@ void clear_range(uint16_t index, uint16_t size) {
 	}
 }
 
-void render_layer_state2( uint16_t index ) {
+void render_layer_state( uint16_t index ) {
 	// Should check passed indices are line-aligned..?
     switch (biton32(layer_state)) {
         case _COLEMAK:
 			oled_write_data_P(colemak_bmp, index, sizeof(colemak_bmp));
             break;
-        case _FN_NAV_KEYS:
-			oled_write_data_P(fn_nav_bmp, index, sizeof(fn_nav_bmp));
-            break; 
-        case _NUMS_MIRROR:
-			oled_write_data_P(num_pad_bmp, index, sizeof(num_pad_bmp));
+        case _FUNCT:
+			oled_write_data_P(funct_bmp, index, sizeof(funct_bmp));
+            break;
+        case _NAV_SYM:
+			oled_write_data_P(nav_sym_bmp, index, sizeof(nav_sym_bmp));
+            break;
+        case _MIRR_NUM:
+			oled_write_data_P(mirr_num_bmp, index, sizeof(mirr_num_bmp));
             break;
         default:
 			// Could display the layer number binary as a grid of 2x3 bits
@@ -302,7 +344,7 @@ void write_or_clear( bool write_not_clear, uint16_t index, const char *data, uin
 	}
 }
 
-void render_host_led_state2( uint16_t index ) {
+void render_host_led_state( uint16_t index ) {
 	write_or_clear( IS_HOST_LED_ON(USB_LED_NUM_LOCK), index, led_num_bmp, sizeof(led_num_bmp) );
 	index += sizeof(led_num_bmp) + 1;
 	write_or_clear( IS_HOST_LED_ON(USB_LED_CAPS_LOCK), index, led_caps_bmp, sizeof(led_caps_bmp) );
@@ -310,10 +352,10 @@ void render_host_led_state2( uint16_t index ) {
 	write_or_clear( IS_HOST_LED_ON(USB_LED_SCROLL_LOCK), index, led_scroll_bmp, sizeof(led_scroll_bmp) );
 }
 
-void render_mod_state2( uint16_t index ) {
+void render_mod_state( uint16_t index ) {
 	// Should check passed index has enough room left to fit all the lines..?
 	
-	uint8_t mods = get_mods();
+	uint8_t mods = get_mods() | get_oneshot_mods();
 	write_or_clear( mods & MOD_BIT(KC_LEFT_SHIFT), index, shift_bmp, sizeof(shift_bmp) );
 	write_or_clear( mods & MOD_BIT(KC_RIGHT_SHIFT), index+32-sizeof(shift_bmp), shift_bmp, sizeof(shift_bmp) );
 	write_or_clear( mods & MOD_BIT(KC_LEFT_CTRL), index+32, ctrl_bmp, sizeof(ctrl_bmp) );
