@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TAP_TOGGLE 0
 #define TAPPING_TOGGLE 2
 
+//#define OLED_BRIGHTNESS 192
+
 #undef RGBLED_NUM
 #undef RGBLIGHT_ANIMATIONS
 
