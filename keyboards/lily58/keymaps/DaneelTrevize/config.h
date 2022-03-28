@@ -28,13 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IGNORE_MOD_TAP_INTERRUPT
 // #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 //#define HOLD_ON_OTHER_KEY_PRESS
 
 #define ONESHOT_TAP_TOGGLE 0
 #define TAPPING_TOGGLE 2
 
-//#define OLED_BRIGHTNESS 192
+#define OLED_BRIGHTNESS 192
 
 #undef RGBLED_NUM
 #undef RGBLIGHT_ANIMATIONS
