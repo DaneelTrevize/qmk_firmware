@@ -57,18 +57,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      |  Alt | Left | Down | Right|  Tab |------.      .------|   \  |   =  |   ]  |   [  |   -  |      |
  * |------+------+------+------+------+------|      |      |   !  |------+------+------+------+------+------|
- * |      |      | BkSp | Shift|  Del | Space|------|      |------|   @  |   #  |   *  |   &  |   ;  |Insert|
+ * |      |      | BkSp | Ctrl |  Del | Space|------|      |------|   @  |   #  |   *  |   &  |   ;  |      |
  * `-----------------------------------------/      /      \      \-----------------------------------------´
  *                   |      |      |      | /      /        \      \ |      |      |      |
- *                   |      |      |      |/      /          \      \|      |      |      |
+ *                   |      |      |      |/ Shift/          \      \|      |      |Insert|
  *                   `---------------------------´            `---------------------------´
  */
 [_NAV_SYM] = LAYOUT(
   KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_SLCK, KC_PGUP, KC_HOME, KC_UP, KC_END, KC_PGDN, KC_PERC, KC_DLR, KC_RPRN, KC_LPRN, RALT(KC_QUOT), KC_CAPS,
   KC_TRNS, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_TAB, KC_BSLS, KC_EQL, KC_RBRC, KC_LBRC, KC_MINS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_BSPC, KC_LSFT, KC_DEL, KC_SPC, KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_ASTR, KC_AMPR, RALT(KC_SCLN), KC_INS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_LCTL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+  KC_TRNS, KC_CIRC, KC_BSPC, KC_LCTL, KC_DEL, KC_SPC, KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_ASTR, KC_AMPR, RALT(KC_SCLN), KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS
   ),
   
 /* _MIRR_NUM
