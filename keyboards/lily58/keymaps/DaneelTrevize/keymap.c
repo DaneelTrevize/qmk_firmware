@@ -11,12 +11,12 @@
 #define KC_LCT_ENT LCTL_T(KC_ENT)
 #define KC_RSF_SPC RSFT_T(KC_SPC)
 #define KC_TG_L3 TG(3)
+#define KC_LA_T_WH LALT_T(KC_WHOM)
 
 #define KC_ KC_TRNS
 #define KC_RAL_QUO RALT(KC_QUOT)
 #define KC_RALT_0 RALT(KC_0)
 #define KC_RALT_9 RALT(KC_9)
-#define KC_RSA_QUO RSA(KC_QUOT)
 #define KC_LSF_GRV LSFT(KC_GRV)
 #define KC_RCTL_BS RCTL(KC_BSPC)
 #define KC_RSA_SCL RSA(KC_SCLN)
@@ -30,22 +30,24 @@
 #define KC_RALT_7 RALT(KC_7)
 #define KC_LSF_TAB LSFT(KC_TAB)
 #define KC_RALT_1 RALT(KC_1)
-#define KC_RAL_EQL RALT(KC_EQL)
 #define KC_RAL_BSL RALT(KC_BSLS)
+#define KC_RAL_EQL RALT(KC_EQL)
+
+#define KC_LA_T_CA LALT_T(KC_CALC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_COLEMAK] = LAYOUT_KC(
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
-      ESC  ,   1   ,   2   ,   3   ,   4   ,   5   ,                        0   ,   9   ,   8   ,   7   ,   6   ,  PAUS ,
+      ESC  ,   1   ,   2   ,   3   ,   4   ,   5   ,                        0   ,   9   ,   8   ,   7   ,   6   ,   NO  ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      CAPS ,   Q   ,   W   ,   F   ,   P   ,   B   ,                        J   ,   L   ,   U   ,   Y   ,  QUOT ,  LALT ,
+      CAPS ,   Q   ,   W   ,   F   ,   P   ,   B   ,                        J   ,   L   ,   U   ,   Y   ,  QUOT ,  PAUS ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
     L2_BSPC,   A   ,   R   ,   S   ,   T   , RA_T_G,                        M   ,   N   ,   E   ,   I   ,   O   ,L2_BSPC,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
       PSCR ,   Z   ,   X   ,   C   ,   D   ,   V   ,  TAB  ,       DEL  ,   K   ,   H   ,  DOT  ,  COMM ,  SCLN ,  RCTL ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                         TG_L1 ,  LGUI , L3_SPC,LCT_ENT,              L1_TAB,RSF_SPC, TG_L3 ,  WHOM
+                         TG_L1 ,  LGUI , L3_SPC,LCT_ENT,              L1_TAB,RSF_SPC,LA_T_WH, TG_L3
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   ),
 
@@ -53,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
            ,   F1  ,   F2  ,   F3  ,   F4  ,   F5  ,                            ,       ,       ,       ,       ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      INS  ,   F6  ,   F7  ,   F8  ,   F9  ,  F10  ,                     RAL_QUO,  GRV  , RALT_0, RALT_9,RSA_QUO,       ,
+      LALT ,   F6  ,   F7  ,   F8  ,   F9  ,  F10  ,                     RAL_QUO,  GRV  , RALT_0, RALT_9,  CIRC ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
      MO_L2 ,  F11  ,  F12  ,  F13  ,  F14  ,  F15  ,                        AT  ,  AMPR ,  EXLM ,  QUES ,LSF_GRV,RCTL_BS,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
@@ -69,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
       SLCK ,  PGUP ,  HOME ,   UP  ,  END  ,  PGDN ,                      RALT_3, RALT_2,  RBRC ,  LBRC , RALT_7,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-           ,  F21  ,  LEFT ,  DOWN ,  RGHT ,LSF_TAB,                      RALT_1,  HASH ,  RPRN ,  LPRN ,  CIRC ,       ,
+           ,  APP  ,  LEFT ,  DOWN ,  RGHT ,LSF_TAB,                      RALT_1,  HASH ,  RPRN ,  LPRN ,RAL_BSL,       ,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-           ,  COLN ,  MINS ,  LCTL ,  EQL  ,  APP  ,       ,            ,RAL_EQL,  ASTR ,  SLSH ,  BSLS ,RAL_BSL,       ,
+           ,  COLN ,  MINS ,  LCTL ,  EQL  ,  INS  ,       ,            ,RAL_EQL,  ASTR ,  SLSH ,  BSLS ,  COLN ,       ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
                                ,  LGUI ,  LALT ,  LSFT ,                    ,       ,       ,       
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
@@ -79,15 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MIRR_NUM] = LAYOUT_KC(
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
-      PAUS ,   6   ,   7   ,   8   ,   9   ,   0   ,                            ,       ,       ,       ,       ,       ,
+           ,   6   ,   7   ,   8   ,   9   ,   0   ,                            ,       ,       ,       ,       ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      NLCK ,  QUOT ,   Y   ,   U   ,   L   ,   J   ,                       PCMM ,   P7  ,   P8  ,   P9  ,  PENT ,       ,
+      PAUS ,  QUOT ,   Y   ,   U   ,   L   ,   J   ,                       PEQL ,   P7  ,   P8  ,   P9  ,  PENT ,  NLCK ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-           ,   O   ,   I   ,   E   ,   N   ,   M   ,                       PAST ,   P4  ,   P5  ,   P6  ,   P0  ,  PDOT ,
+           ,   O   ,   I   ,   E   ,   N   ,   M   ,                       PAST ,   P4  ,   P5  ,   P6  ,   P0  ,       ,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-      RCTL ,  SCLN ,  COMM ,  DOT  ,   H   ,   K   ,  DEL  ,            ,  PSLS ,   P1  ,   P2  ,   P3  ,  PEQL ,       ,
+      RCTL ,  SCLN ,  COMM ,  DOT  ,   H   ,   K   ,  DEL  ,       PCMM ,  PSLS ,   P1  ,   P2  ,   P3  ,  PDOT ,       ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                               ,       ,       ,       ,               PPLS ,  PMNS ,       ,  CALC
+                               ,       ,       ,       ,               PPLS ,  PMNS ,LA_T_CA,
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   )
 };
