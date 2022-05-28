@@ -121,13 +121,16 @@ bool oled_task_user(void) {
 	//oled_write_ln(read_keylog(), false);
     //oled_write_ln(read_timelog(), false);
 	#else
-	render_layer_state( 0 );
-	render_host_led_state( 32 );
-	render_mod_state( 64 );
+	render_logo( 0 );
+	render_layer_state( 128 );
+	render_host_led_state( 128+32 );
+	render_mod_state( 128+64 );
     #endif // OLED_FONT_ENABLE
   } else {
     #ifdef OLED_FONT_ENABLE
     oled_write(read_logo(), false);
+	#else
+	render_logo( 0 );
     #endif // OLED_FONT_ENABLE
   }
     return false;

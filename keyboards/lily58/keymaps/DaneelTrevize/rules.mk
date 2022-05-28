@@ -28,7 +28,8 @@ ifeq ($(strip $(OLED_SCROLL_ENABLE)), yes)
 endif
 
 # If you want to change the display of OLED, you need to change here
-SRC +=  oled.c
+SRC +=  oled.c \
+		logo.c
         # ./lib/logo_reader.c \
 		# ./lib/keylogger.c \
         # ./lib/host_led_state_reader.c \
