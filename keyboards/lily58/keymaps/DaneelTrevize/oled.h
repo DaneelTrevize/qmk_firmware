@@ -2,8 +2,9 @@
 
 enum layer_number {
   _COLEMAK = 0,
-  _FN_NAV_KEYS,
-  _NUMS_MIRROR
+  _FUNCT,
+  _NAV_SYM,
+  _MIRR_NUM
 };
 
 #ifdef OLED_ENABLE

@@ -10,11 +10,14 @@ void render_layer_state(void) {
         case _COLEMAK:
             oled_write_P(PSTR("Cole   mak"), false);
             break;
-        case _FN_NAV_KEYS:
-            oled_write_P(PSTR("Func   Nav"), false);
+        case _FUNCT:
+            oled_write_P(PSTR("Func  tion"), false);
             break;
-        case _NUMS_MIRROR:
-            oled_write_P(PSTR("Num    Pad"), false);
+        case _NAV_SYM:
+            oled_write_P(PSTR("Nav    Sym"), false);
+            break;
+        case _MIRR_NUM:
+            oled_write_P(PSTR("Mirr   Num"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
