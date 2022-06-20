@@ -3,36 +3,31 @@
 #include "oled.h"
 
 // Aliases
-#define KC_L2_BSPC LT(2,KC_BSPC)
+#define KC_L3_BSPC LT(3,KC_BSPC)
 #define KC_RAL_T_G RALT_T(KC_G)
 #define KC_RAL_T_M RALT_T(KC_M)
 #define KC_TG_L1 TG(1)
-#define KC_L3_SPC LT(3,KC_SPC)
-#define KC_LCT_ENT LCTL_T(KC_ENT)
-#define KC_L1_TAB LT(1,KC_TAB)
-#define KC_TG_L3 TG(3)
+#define KC_MO_L2 MO(2)
+#define KC_LCT_SPC LCTL_T(KC_SPC)
+#define KC_MO_L1 MO(1)
 
 #define KC_ KC_TRNS
-#define KC_RAL_QUO RALT(KC_QUOT)
-#define KC_RALT_0 RALT(KC_0)
-#define KC_RALT_9 RALT(KC_9)
-#define KC_LSF_GRV LSFT(KC_GRV)
 #define KC_RCTL_BS RCTL(KC_BSPC)
-#define KC_RSA_SCL RSA(KC_SCLN)
-#define KC_RSFAL_4 RSA(KC_4)
-#define KC_RALT_5 RALT(KC_5)
-#define KC_MO_L3 MO(3)
 
-#define KC_RALT_3 RALT(KC_3)
-#define KC_RALT_2 RALT(KC_2)
-#define KC_MO_L2 MO(2)
-#define KC_RALT_7 RALT(KC_7)
-#define KC_LSF_TAB LSFT(KC_TAB)
-#define KC_RALT_1 RALT(KC_1)
-#define KC_RAL_BSL RALT(KC_BSLS)
-#define KC_RAL_EQL RALT(KC_EQL)
+#define KC_SUP_1 RSA(KC_1)
+#define KC_MULT RALT(KC_EQL)
+#define KC_NEGT RALT(KC_BSLS)
+#define KC_SUP_2 RALT(KC_2)
+#define KC_LAL_PSC LALT(KC_PSCR)
+#define KC_SUP_3 RALT(KC_3)
 
-#define KC_LA_T_PP LALT_T(KC_PPLS)
+#define KC_BKSQUO RALT(KC_0)
+#define KC_FWSQUO RALT(KC_9)
+#define KC_ACUT RALT(KC_QUOT)
+#define KC_EURO RALT(KC_5)
+#define KC_DEGREE RSA(KC_SCLN)
+#define KC_GBP RSA(KC_4)
+#define KC_HALF RALT(KC_7)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -40,55 +35,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
       ESC  ,   1   ,   2   ,   3   ,   4   ,   5   ,                        0   ,   9   ,   8   ,   7   ,   6   ,   NO  ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      CAPS ,   Q   ,   W   ,   F   ,   P   ,   B   ,                        J   ,   L   ,   U   ,   Y   ,  QUOT ,  PAUS ,
+      NUM  ,   Q   ,   W   ,   F   ,   P   ,   B   ,                        J   ,   L   ,   U   ,   Y   ,  QUOT ,  PAUS ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-    L2_BSPC,   A   ,   R   ,   S   ,   T   ,RAL_T_G,                     RAL_T_M,   N   ,   E   ,   I   ,   O   ,L2_BSPC,
+    L3_BSPC,   A   ,   R   ,   S   ,   T   ,RAL_T_G,                     RAL_T_M,   N   ,   E   ,   I   ,   O   ,L3_BSPC,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-      PSCR ,   Z   ,   X   ,   C   ,   D   ,   V   ,  TAB  ,       DEL  ,   K   ,   H   ,  DOT  ,  COMM ,  SCLN ,  RCTL ,
+      PSCR ,   Z   ,   X   ,   C   ,   D   ,   V   ,  WHOM ,       DEL  ,   K   ,   H   ,  DOT  ,  COMM ,  MINS ,  RCTL ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                         TG_L1 ,  MINS , L3_SPC,LCT_ENT,              L1_TAB,  RSFT ,  RGUI , TG_L3
+                           NO  , TG_L1 , MO_L2 ,LCT_SPC,              MO_L1 ,  RSFT ,  RGUI ,   NO 
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   ),
 
-[_FUNCT] = LAYOUT_KC(
+[_FUNC_NUM] = LAYOUT_KC(
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
            ,   F1  ,   F2  ,   F3  ,   F4  ,   F5  ,                            ,       ,       ,       ,       ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      LSFT ,   F6  ,   F7  ,   F8  ,   F9  ,  F10  ,                     RAL_QUO,  GRV  , RALT_0, RALT_9,  CIRC ,       ,
+      CAPS ,   F6  ,   F7  ,   F8  ,   F9  ,  F10  ,                       PCMM ,   P7  ,   P8  ,   P9  ,  PDOT ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-     MO_L2 ,  F11  ,  F12  ,  F13  ,  F14  ,  F15  ,                        AT  ,  AMPR ,  EXLM ,  QUES ,LSF_GRV,RCTL_BS,
+           ,  F11  ,  F12  ,  F13  ,  F14  ,  F15  ,                       PAST ,   P4  ,   P5  ,   P6  ,   P0  ,RCTL_BS,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-           ,  F16  ,  F17  ,  F18  ,  F19  ,  F20  ,       ,       WHOM ,RSA_SCL,  PERC ,RSFAL_4,  DLR  , RALT_5,       ,
+           ,  F16  ,  F17  ,  F18  ,  F19  ,  F20  ,  CALC ,       PSLS ,  PPLS ,   P1  ,   P2  ,   P3  ,  PMNS ,       ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                               ,       , MO_L3 ,  LCTL ,                    ,       ,       ,       
+                               ,       ,       ,  LCTL ,                    ,  PENT ,  PEQL ,       
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   ),
 
-[_NAV_SYM] = LAYOUT_KC(
+[_NAV_CODE] = LAYOUT_KC(
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
            ,   1   ,   2   ,   3   ,   4   ,   5   ,                            ,       ,       ,       ,       ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      SLCK ,  PGUP ,  HOME ,   UP  ,  END  ,  PGDN ,                      RALT_3, RALT_2,  RBRC ,  LBRC , RALT_7,       ,
+      SLCK ,  PGUP ,  HOME ,   UP  ,  END  ,  PGDN ,                      SUP_1 ,  MULT ,  SLSH ,  BSLS ,  NEGT ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-           ,  APP  ,  LEFT ,  DOWN ,  RGHT ,LSF_TAB,                      RALT_1,  ASTR ,  RPRN ,  LPRN ,RAL_BSL,       ,
+           ,  LSFT ,  LEFT ,  DOWN ,  RGHT ,  ENT  ,                      SUP_2 ,  ASTR ,  RPRN ,  LPRN ,  HASH ,       ,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-           ,  COLN ,  MINS ,  LCTL ,  EQL  ,  INS  ,       ,            ,RAL_EQL,  SLSH ,  BSLS ,  HASH ,  COLN ,       ,
+    LAL_PSC,  LGUI ,  LALT ,  LCTL ,  TAB  ,  APP  ,  INS  ,            , SUP_3 ,  EQL  ,  RBRC ,  LBRC ,  SCLN ,       ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                               ,  LGUI ,  LSFT ,  LALT ,               LALT ,       ,       ,       
+                               ,       ,       ,       ,                    ,       ,       ,       
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   ),
 
-[_MIRR_NUM] = LAYOUT_KC(
+[_MIRR_SYM] = LAYOUT_KC(
 // .-------.-------.-------.-------.-------.-------.                    .-------.-------.-------.-------.-------.-------.
            ,   6   ,   7   ,   8   ,   9   ,   0   ,                            ,       ,       ,       ,       ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-      PAUS ,  QUOT ,   Y   ,   U   ,   L   ,   J   ,                       PCMM ,   P7  ,   P8  ,   P9  ,  PEQL ,  NLCK ,
+      PAUS ,  QUOT ,   Y   ,   U   ,   L   ,   J   ,                      BKSQUO, FWSQUO,  GRV  ,  ACUT ,  CIRC ,       ,
 // |-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------|
-           ,   O   ,   I   ,   E   ,   N   ,   M   ,                       PAST ,   P4  ,   P5  ,   P6  ,   P0  ,       ,
+           ,   O   ,   I   ,   E   ,   N   ,   M   ,                        AT  ,  AMPR ,  EXLM ,  QUES ,  EURO ,       ,
 // |-------+-------+-------+-------+-------+-------+-------.    .-------+-------+-------+-------+-------+-------+-------|
-      RCTL ,  SCLN ,  COMM ,  DOT  ,   H   ,   K   ,  DEL  ,       CALC ,  PSLS ,   P1  ,   P2  ,   P3  ,  PDOT ,       ,
+      RCTL ,  SCLN ,  COMM ,  DOT  ,   H   ,   K   ,  DEL  ,            , DEGREE,  PERC ,  GBP  ,  DLR  ,  HALF ,       ,
 // `-------^-------^---.---^---.---^---.---^---.---^---.---´    `---.---^---.---^---.---^---.---^---.---^-------^-------´
-                               ,       ,       ,       ,             LA_T_PP,  PMNS ,  PENT ,
+                               ,  LGUI ,  LSFT ,  LALT ,               LALT ,       ,       ,
 //                     `-------^-------^-------^-------´            `-------^-------^-------^-------´
   )
 };

@@ -10,14 +10,14 @@ void write_layer_state(void) {
         case _COLEMAK:
             oled_write_P(PSTR("Cole   mak"), false);
             break;
-        case _FUNCT:
-            oled_write_P(PSTR("Func  tion"), false);
+        case _FUNC_NUM:
+            oled_write_P(PSTR("Func   Num"), false);
             break;
-        case _NAV_SYM:
-            oled_write_P(PSTR("Nav    Sym"), false);
+        case _NAV_CODE:
+            oled_write_P(PSTR("Nav   Code"), false);
             break;
-        case _MIRR_NUM:
-            oled_write_P(PSTR("Mirr   Num"), false);
+        case _MIRR_SYM:
+            oled_write_P(PSTR("Mirr   Sym"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -96,8 +96,8 @@ const char colemak_bmp[] PROGMEM = {
 	0b00100100
 };
 
-const char funct_bmp[] PROGMEM = {
-	// Function
+const char func_num_bmp[] PROGMEM = {
+	// Func 123
 	0b00111111,
 	0b00000101,
 	0b00000101,
@@ -116,25 +116,24 @@ const char funct_bmp[] PROGMEM = {
 	0b00100100,
 	0b00100100,
 	0x00,
-	0b00011111,
-	0b00100100,
 	0x00,
-	0b00111010,
+	0b01000010,
+	0b01111111,
+	0b01000000,
 	0x00,
-	0b00011000,
-	0b00100100,
-	0b00100100,
-	0b00011000,
+	0b01100010,
+	0b01010001,
+	0b01001001,
+	0b01000110,
 	0x00,
-	0b00111100,
-	0b00000100,
-	0b00000100,
-	0b00111000
+	0b00100010,
+	0b01001001,
+	0b01001001,
+	0b00110110
 };
 
-const char nav_sym_bmp[] PROGMEM = {
-	// Nav Sym
-	0x00,
+const char nav_code_bmp[] PROGMEM = {
+	// Nav Code
 	0b00001000,
 	0b00011100,
 	0b00111110,
@@ -149,6 +148,43 @@ const char nav_sym_bmp[] PROGMEM = {
 	0b00011100,
 	0b00001000,
 	0x00,
+	0b00011110,
+	0b00100001,
+	0b00100001,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00011000,
+	0x00,
+	0b00011000,
+	0b00100100,
+	0b00100100,
+	0b00111110,
+	0x00,
+	0b00011000,
+	0b00101100,
+	0b00101100,
+	0b00001000
+};
+
+const char mirr_sym_bmp[] PROGMEM = {
+	// Mirr Sym
+	0b00111111,
+	0b00000010,
+	0b00111100,
+	0b00000010,
+	0b00111111,
+	0x00,
+	0b00111010,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00000100,
+	0x00,
+	0b00111000,
+	0b00000100,
+	0b00000100,
 	0x00,
 	0x00,
 	0x00,
@@ -166,43 +202,6 @@ const char nav_sym_bmp[] PROGMEM = {
 	0b00111110,
 	0b00000010,
 	0b00111110
-};
-
-const char mirr_num_bmp[] PROGMEM = {
-	// Mirr 123
-	0b00111111,
-	0b00000010,
-	0b00111100,
-	0b00000010,
-	0b00111111,
-	0x00,
-	0b00111010,
-	0x00,
-	0b00111000,
-	0b00000100,
-	0b00000100,
-	0x00,
-	0b00111000,
-	0b00000100,
-	0b00000100,
-	0x00,
-	0x00,
-	0x00,
-	0b01000010,
-	0b01111111,
-	0b01000000,
-	0x00,
-	0b01100010,
-	0b01010001,
-	0b01001001,
-	0b01000110,
-	0x00,
-	0b00100010,
-	0b01001001,
-	0b01001001,
-	0b00110110,
-	0x00,
-	0x00
 };
 
 const char led_caps_bmp[] PROGMEM = {
@@ -413,14 +412,14 @@ void render_layer_state( uint16_t index ) {
         case _COLEMAK:
 			oled_write_data_P(colemak_bmp, index, sizeof(colemak_bmp));
             break;
-        case _FUNCT:
-			oled_write_data_P(funct_bmp, index, sizeof(funct_bmp));
+        case _FUNC_NUM:
+			oled_write_data_P(func_num_bmp, index, sizeof(func_num_bmp));
             break;
-        case _NAV_SYM:
-			oled_write_data_P(nav_sym_bmp, index, sizeof(nav_sym_bmp));
+        case _NAV_CODE:
+			oled_write_data_P(nav_code_bmp, index, sizeof(nav_code_bmp));
             break;
-        case _MIRR_NUM:
-			oled_write_data_P(mirr_num_bmp, index, sizeof(mirr_num_bmp));
+        case _MIRR_SYM:
+			oled_write_data_P(mirr_sym_bmp, index, sizeof(mirr_sym_bmp));
             break;
         default:
 			// Could display the layer number binary as a grid of 2x3 bits
