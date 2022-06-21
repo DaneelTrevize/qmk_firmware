@@ -10,6 +10,9 @@ void write_layer_state(void) {
         case _COLEMAK:
             oled_write_P(PSTR("Cole   mak"), false);
             break;
+        case _QWERTY:
+            oled_write_P(PSTR("Qwe    rty"), false);
+            break;
         case _FUNC_NUM:
             oled_write_P(PSTR("Func   Num"), false);
             break;
@@ -94,6 +97,42 @@ const char colemak_bmp[] PROGMEM = {
 	0b00111110,
 	0b00011000,
 	0b00100100
+};
+
+const char qwerty_bmp[] PROGMEM = {
+	// QWERTY
+	0b00011110,
+	0b00100001,
+	0b00100001,
+	0b00101001,
+	0b00011110,
+	0b00100000,
+	0x00,
+	0b00011110,
+	0b00100000,
+	0b00011110,
+	0b00100000,
+	0b00011110,
+	0x00,
+	0b00111110,
+	0b00101010,
+	0b00101010,
+	0b00101010,
+	0x00,
+	0b00111110,
+	0b00001010,
+	0b00011010,
+	0b00100100,
+	0x00,
+	0b00000010,
+	0b00000010,
+	0b00111110,
+	0b00000010,
+	0b00000010,
+	0x00,
+	0b00000110,
+	0b00111000,
+	0b00000110
 };
 
 const char func_num_bmp[] PROGMEM = {
@@ -411,6 +450,9 @@ void render_layer_state( uint16_t index ) {
     switch (biton32(layer_state)) {
         case _COLEMAK:
 			oled_write_data_P(colemak_bmp, index, sizeof(colemak_bmp));
+            break;
+        case _QWERTY:
+			oled_write_data_P(qwerty_bmp, index, sizeof(qwerty_bmp));
             break;
         case _FUNC_NUM:
 			oled_write_data_P(func_num_bmp, index, sizeof(func_num_bmp));
